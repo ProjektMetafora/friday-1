@@ -6,6 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:friday/providers/providers.dart';
+import 'package:hooks_riverpod/all.dart';
+
 import 'package:friday/widgets/creditcards.dart';
 import 'package:friday/widgets/dropdown.dart';
 
@@ -257,21 +261,36 @@ class TransactionDetails extends StatelessWidget {
   }
 }
 
-class CardsWidget extends StatelessWidget {
+class CardsWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider.builder(
-      itemCount: 3,
-      itemBuilder: (contex, index) {
-        return VirtualCard(
-          name: "Sumit Roy",
-          cardNumber: "5120 4200 0000 0000",
-          validThru: "4/25",
-          image: "assets/Group 10768.svg",
-        );
+    return Consumer(
+      builder: (context, watch, child) {
+        return FutureBuilder(
+            future: context.read(appRepositoryProvider).getCardsList(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return CarouselSlider.builder(
+                  itemCount: snapshot.data.cards.length,
+                  itemBuilder: (contex, index) {
+                    return VirtualCard(
+                      name: "${snapshot.data.cards[index].nameOnCard}",
+                      cardNumber:
+                          "${snapshot.data.cards[index].binNumber}XXXXXX${snapshot.data.cards[index].cardLastFourDigits}",
+                      validThru:
+                          "${snapshot.data.cards[index].expirationMonth}/${snapshot.data.cards[index].expirationYear}",
+                      image: "assets/Group 10768.svg",
+                    );
+                  },
+                  options: CarouselOptions(
+                      height: 0.3.sh,
+                      viewportFraction: 0.8,
+                      enableInfiniteScroll: false),
+                );
+              }
+              return CircularProgressIndicator();
+            });
       },
-      options: CarouselOptions(
-          height: 0.3.sh, viewportFraction: 0.8, enableInfiniteScroll: false),
     );
   }
 }

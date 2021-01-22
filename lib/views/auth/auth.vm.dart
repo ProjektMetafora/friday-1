@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:friday/models/common/user.response.dart';
 import 'package:friday/providers/providers.dart';
@@ -48,6 +49,17 @@ class AuthVM extends StateNotifier<AuthState> {
     print('response $res');
     if (res != null) {
       state = AuthState.authenticated(user: res);
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> signInWithGoogle() async {
+    final res = await repo.signInWIthGoogle();
+    print('response $res');
+    if (res != null) {
+      // TODO: firebase user => model user => update state
+      // state = AuthState.authenticated(user: res);
       return true;
     }
     return false;

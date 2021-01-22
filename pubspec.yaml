@@ -49,6 +49,9 @@ dependencies:
   sembast: ^2.4.8+1
   shared_preferences: ^0.5.12+4
   sleek_circular_slider: ^1.2.0+web
+  firebase_core: ^0.7.0
+  firebase_auth: ^0.20.0+1
+  google_sign_in: ^4.5.9
 
 dev_dependencies:
   flutter_test:
