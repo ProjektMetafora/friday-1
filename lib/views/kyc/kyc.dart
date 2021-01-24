@@ -62,8 +62,10 @@ class KYCView extends HookWidget {
                 ),
                 TextField(
                   controller: pan,
+
                   decoration:
                       InputDecoration(
+                        labelText: "pan",
                         icon: new Icon(Icons.credit_card_rounded) ,
                       ),
                   ),
@@ -72,8 +74,10 @@ class KYCView extends HookWidget {
                   height: 0.03.sh,
                 ),
                 TextField(
+
                   controller: dob,
                   decoration:  InputDecoration(
+                      labelText: "Date of Birth",
                       icon: new Icon(Icons.date_range) ,
                   ),
                   ),

@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
               title: 'Flutter Demo',
+              debugShowCheckedModeBanner: false,
               theme: AppTheme.theme().copyWith(
                 textTheme: TextTheme(
                   headline1: GoogleFonts.montserrat(fontSize: 25),
