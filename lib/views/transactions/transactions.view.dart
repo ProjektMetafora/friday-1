@@ -38,7 +38,7 @@ class TransactionView extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 0.1.sw, vertical: 20),
+                    EdgeInsets.symmetric(horizontal: 0.1.sw, vertical: 20),
                     child: Text(
                       "Transactions",
                       style: Theme.of(context).textTheme.headline1,
@@ -114,7 +114,7 @@ class CircularTransactionIndicator extends StatelessWidget {
             ),
             circularStrokeCap: CircularStrokeCap.round,
             progressColor:
-                isDown ? Colors.pinkAccent[100] : Colors.deepPurpleAccent[100],
+            isDown ? Colors.pinkAccent[100] : Colors.deepPurpleAccent[100],
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -221,10 +221,10 @@ class TransactionDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final subtitleStyle =
-        Theme.of(context).textTheme.subtitle1.copyWith(color: Colors.black54);
+    Theme.of(context).textTheme.subtitle1.copyWith(color: Colors.black54);
 
     final titleStyle =
-        Theme.of(context).textTheme.bodyText2.copyWith(color: Colors.black);
+    Theme.of(context).textTheme.bodyText2.copyWith(color: Colors.black);
     return ListTile(
       leading: Icon(
         Icons.card_giftcard,
@@ -253,7 +253,7 @@ class TransactionDetails extends StatelessWidget {
           Text(
             "$amount",
             style:
-                titleStyle.copyWith(color: isDebit ? Colors.red : Colors.green),
+            titleStyle.copyWith(color: isDebit ? Colors.red : Colors.green),
           ),
         ],
       ),
@@ -276,9 +276,9 @@ class CardsWidget extends HookWidget {
                     return VirtualCard(
                       name: "${snapshot.data.cards[index].nameOnCard}",
                       cardNumber:
-                          "${snapshot.data.cards[index].binNumber}XXXXXX${snapshot.data.cards[index].cardLastFourDigits}",
+                      "${snapshot.data.cards[index].binNumber}XXXXXX${snapshot.data.cards[index].cardLastFourDigits}",
                       validThru:
-                          "${snapshot.data.cards[index].expirationMonth}/${snapshot.data.cards[index].expirationYear}",
+                      "${snapshot.data.cards[index].expirationMonth}/${snapshot.data.cards[index].expirationYear}",
                       image: "assets/Group 10768.svg",
                     );
                   },
@@ -288,7 +288,16 @@ class CardsWidget extends HookWidget {
                       enableInfiniteScroll: false),
                 );
               }
-              return CircularProgressIndicator();
+              if(snapshot.connectionState == null){
+                return Container(
+                  child: Center(
+                    child: Text(
+                      "No cards added"
+                    ),
+                  ),
+                );
+              }
+              return Center(child: CircularProgressIndicator());
             });
       },
     );

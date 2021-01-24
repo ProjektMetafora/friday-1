@@ -4,8 +4,11 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:friday/models/common/cards_list.response.dart';
 import 'package:friday/models/common/user.response.dart';
+import 'package:friday/models/transactions.dart';
+import 'package:friday/models/transactions_list.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
@@ -71,6 +74,10 @@ class AppRepository {
       return null;
     }
 
+    return null;
+  }
+
+  Future<List<FridayTransaction>> getTransactions() async{
     return null;
   }
 
@@ -238,6 +245,7 @@ class AppRepository {
       if (res.statusCode == 200) return true;
       return false;
     } catch (e) {
+      print(e);
       return false;
     }
   }
@@ -308,6 +316,8 @@ class AppRepository {
       print(res);
       if (res.statusCode == 200) {
         print(res.data['vcard']);
+
+        print("response header: ${res}");
         await commonStore.record(USERKEY).put(await getDb(), res.data);
         final userLogin = LoginUserResponse.fromJson(res.data);
         return userLogin;
@@ -323,6 +333,43 @@ class AppRepository {
     }
   }
 
+
+  Future<LoginUserResponse> fridayGoogleLogin(User form) async {
+    try{
+      print("${form.displayName.split(" ")[0]},  ${form.email}, ${form.uid} ");
+
+      final body = {
+          "googleId": form.uid,
+          "name": form.displayName.split(" ")[0],
+          "givenName": form.displayName.split(" ")[0],
+          "familyName": form.displayName.split(" ")[1],
+          "email": form.email,
+          "imageUrl": form.email,
+          "loginDate": form.metadata.lastSignInTime.toString()
+      };
+
+      final res = await sendPost('/login/google', body, BASE_URL);
+      if (res.statusCode == 200) {
+        print(res.data['vcard']);
+
+        print("response header: ${res}");
+        await commonStore.record(USERKEY).put(await getDb(), res.data);
+        final userLogin = LoginUserResponse.fromJson(res.data);
+        return userLogin;
+      }
+
+      return null;
+    }catch(e){
+      print(e);
+      return null;
+    }
+  }
+
+
+
   Future<User> signInWIthGoogle() async =>
       await firebaseService.signInWithGoogle();
 }
+
+
+

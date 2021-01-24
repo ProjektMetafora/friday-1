@@ -26,7 +26,7 @@ class HomeView extends StatelessWidget {
               Align(
                 alignment: Alignment.topRight,
                 child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    padding: const EdgeInsets.fromLTRB(12, 15, 15, 0),
                     child: IconButton(
                       onPressed: () {
                         context.rootNavigator.push('/wallet-view');
@@ -41,12 +41,12 @@ class HomeView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 28,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30),
+                      child: Icon(Icons.account_circle, size: 50, ),
                     ),
                     SizedBox(
-                      width: 0.13.sw,
+                      width: 0.06.sw,
                     ),
                     Column(
                       children: [
@@ -104,7 +104,7 @@ class HomeView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: 0.1.sh,
+                                height: 0.06.sh,
                               ),
                               Consumer(builder: (context, watch, child) {
                                 // context.read(appRepositoryProvider).getLoggedInUser();
@@ -118,7 +118,7 @@ class HomeView extends StatelessWidget {
                                           snapshot) {
                                     if (snapshot.hasData) {
                                       return ActivateCardSwitch(
-                                        // TODO: Add card active state from api
+
                                         isCardActive: snapshot
                                             .data.userDetails.vcardStatus,
                                       );
@@ -243,7 +243,7 @@ class Offers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.fromLTRB(0.1.sw,0.03.sw,0.06.sw,0.04.sw),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -255,11 +255,11 @@ class Offers extends StatelessWidget {
                 .copyWith(color: Colors.black),
           ),
           SizedBox(
-            height: 0.03.sh,
+            height: 0.02.sh,
           ),
           Container(
-            height: 0.08.sh,
-            width: 0.8.sw,
+            height: 0.1.sh,
+            width: 1.0.sw,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -285,7 +285,7 @@ class Rewards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 0.1.sw, vertical: 0.05.sh),
+      padding: EdgeInsets.fromLTRB(0.1.sw,0.02.sw,0.06.sw,0.04.sw),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -300,7 +300,7 @@ class Rewards extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 0.03.sh,
+            height: 0.02.sh,
           ),
           Container(
             height: 0.1.sh,
@@ -364,12 +364,15 @@ class MonthlySpend extends HookWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Monthly Spending Limit",
-              style: Theme.of(context)
-                  .textTheme
-                  .caption
-                  .copyWith(color: Colors.black),
+            Padding(
+              padding: const EdgeInsets.only(top: 18.0),
+              child: Text(
+                "Monthly Spending Limit",
+                style: Theme.of(context)
+                    .textTheme
+                    .caption
+                    .copyWith(color: Colors.black, fontSize: 18),
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -397,7 +400,7 @@ class MonthlySpend extends HookWidget {
                 //   progressColor: Colors.black,
                 // ),
                 Text(
-                  "${limitText.toStringAsFixed(0)}k",
+                  "${limitText.toStringAsFixed(0)} K",
                   style: Theme.of(context)
                       .textTheme
                       .caption

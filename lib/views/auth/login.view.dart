@@ -58,7 +58,7 @@ class LoginView extends HookWidget {
                       style: Theme.of(context).textTheme.headline1,
                     ),
                     AutoSizeText(
-                      "Pleasse login or sign up to continue",
+                      "Please login or sign up to continue",
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     SizedBox(
@@ -90,10 +90,13 @@ class LoginView extends HookWidget {
                       },
                       color: Theme.of(context).buttonColor,
                     ),
-                    AuthButton(
+                    GoogleSignUpButton(
                       text: "Signup with Google",
-                      onPressed: () {
-                        context.read(authProvider).signInWithGoogle();
+                      onPressed: () async {
+
+                        showBlockingDialog(context);
+                        await context.read(authProvider).signInWithGoogle();
+                        context.rootNavigator.popUntilPath('/');
                       },
                       color: Theme.of(context).primaryColor,
                     ),

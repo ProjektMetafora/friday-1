@@ -66,6 +66,17 @@ class CardsView extends HookWidget {
                   print(snapshot.error);
                 }
 
+                if (snapshot.connectionState == null){
+                 return Container(
+                   height: 1.sh,
+                   child: Center(
+                     child: Text(
+                       "Cards not added. \n Please add card to preview.",
+                       textAlign: TextAlign.center,
+                     ),
+                   ),
+                 );
+                }
                 return Container(
                   height: 1.sh,
                   child: Center(

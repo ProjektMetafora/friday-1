@@ -100,9 +100,14 @@ class SignUpView extends HookWidget {
                       },
                       color: Theme.of(context).buttonColor,
                     ),
-                    AuthButton(
+                    GoogleSignUpButton(
                       text: "Signup with Google",
-                      onPressed: () {},
+                      onPressed: () async {
+
+                        showBlockingDialog(context);
+                        await context.read(authProvider).signInWithGoogle();
+                        context.rootNavigator.popUntilPath('/');
+                      },
                       color: Theme.of(context).primaryColor,
                     ),
                     SizedBox(

@@ -17,6 +17,7 @@ class FirebaseService {
     var authResult = await firebaseAuth.signInWithCredential(credential);
 
     User user = authResult.user;
+    print(user);
     return user;
   }
 }

@@ -31,13 +31,8 @@ class KYCView extends HookWidget {
                 Align(
                   alignment: Alignment.topRight,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: IconButton(
-                      onPressed: () {
-                        context.rootNavigator.push('/wallet-view');
-                      },
-                      icon: Icon(MaterialCommunityIcons.wallet),
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
+
                   ),
                 ),
                 Text(
@@ -47,47 +42,42 @@ class KYCView extends HookWidget {
                 Row(
                   children: [
                     Text(
-                      "Your KYC is Incomplete",
+                      "Complete your KYC",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     SizedBox(
                       width: 0.01.sh,
                     ),
-                    ExlcamationWidget()
+                    Icon(Icons.verified)
                   ],
                 ),
                 SizedBox(
-                  height: 0.02.sh,
+                  height: 0.07.sh,
                 ),
                 Align(
-                  child: SvgPicture.asset("assets/Group 10654.svg"),
+                  child: SvgPicture.asset("assets/Group 10654.svg", width: 0.5.sw,),
                 ),
                 SizedBox(
                   height: 0.1.sh,
                 ),
                 TextField(
                   controller: pan,
-                  decoration: inputFormatTwo(
-                    context,
-                    label: "PAN Card",
-                    icon: ExlcamationWidget(
-                      isDone: false,
-                    ),
+                  decoration:
+                      InputDecoration(
+                        icon: new Icon(Icons.credit_card_rounded) ,
+                      ),
                   ),
-                ),
+
                 SizedBox(
                   height: 0.03.sh,
                 ),
                 TextField(
                   controller: dob,
-                  decoration: inputFormatTwo(
-                    context,
-                    label: "Date of Birth",
-                    icon: ExlcamationWidget(
-                      isDone: false,
-                    ),
+                  decoration:  InputDecoration(
+                      icon: new Icon(Icons.date_range) ,
                   ),
-                ),
+                  ),
+
                 SizedBox(
                   height: 0.03.sh,
                 ),
@@ -137,9 +127,9 @@ class KYCView extends HookWidget {
                         "consent": consent,
                       };
                       showSnack(context, "SAVING DETAILS");
-
+                      print(form);
                       final res = await context.read(appRepositoryProvider).addKYC(form);
-
+                      print(res);
                       if (res) {
                         context.rootNavigator.popUntilPath("/");
                         showSnack(context, "SUCCESS");
@@ -153,27 +143,27 @@ class KYCView extends HookWidget {
                     width: 0.25,
                   ),
                 ),
-                SizedBox(
-                  height: 0.03.sh,
-                ),
-                RichText(
-                  textAlign: TextAlign.start,
-                  text: TextSpan(
-                    // style: TextSty÷/,
-                    text: " Instructions ",
-                    style: Theme.of(context).textTheme.bodyText1,
-                    children: [
-                      TextSpan(
-                        text: " \n Verify documents ",
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                      TextSpan(
-                        text: " \n Verify Identity ",
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                    ],
-                  ),
-                )
+                // SizedBox(
+                //   height: 0.03.sh,
+                // ),
+                // RichText(
+                //   textAlign: TextAlign.start,
+                //   text: TextSpan(
+                //     // style: TextSty÷/,
+                //     text: " Instructions ",
+                //     style: Theme.of(context).textTheme.bodyText1,
+                //     children: [
+                //       TextSpan(
+                //         text: " \n Verify documents ",
+                //         style: Theme.of(context).textTheme.subtitle1,
+                //       ),
+                //       TextSpan(
+                //         text: " \n Verify Identity ",
+                //         style: Theme.of(context).textTheme.subtitle1,
+                //       ),
+                //     ],
+                //   ),
+                // )
                 // Date
               ],
             ),

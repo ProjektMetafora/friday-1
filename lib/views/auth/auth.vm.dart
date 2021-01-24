@@ -59,10 +59,16 @@ class AuthVM extends StateNotifier<AuthState> {
     print('response $res');
     if (res != null) {
       // TODO: firebase user => model user => update state
-      // state = AuthState.authenticated(user: res);
-      return true;
+
+      final result = await repo.fridayGoogleLogin(res);
+      print("result : ${result}");
+
+      if (res != null) {
+        state = AuthState.authenticated(user: result);
+        return true;
+      }
+      return false;
     }
-    return false;
   }
 
   void addSignUpValues(String name, String email, String password) {
